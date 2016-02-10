@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "gh/client"
+
+require "pry"
+require "pry-byebug"
+
+if defined?(PryByebug)
+  Pry.commands.alias_command 'c', 'continue'
+  Pry.commands.alias_command 's', 'step'
+  Pry.commands.alias_command 'n', 'next'
+  Pry.commands.alias_command 'f', 'finish'
+end
+
+client = Gh::Client.new ARGV[0], ARGV[1]
+client.open owner: "gio-stand-pri", repository: "gspcp"
+
+Pry.start
